@@ -9,6 +9,8 @@ function App() {
     const [graph, setGraph] = useState({});
     const [lists, setLists] = useState({});
 
+    const containerClass = 'flex-1 bg-white m-4 p-2 shadow-lg text-center';
+
     async function fetchLists(nodes, edges) {
         const fullResponse = await fetch('https://graphprojectmd.herokuapp.com/graph', {
             method: 'POST',
@@ -27,7 +29,7 @@ function App() {
 
     return (
         <div className="h-screen p-16 flex bg-gray-100">
-            <div className="flex-1 bg-white m-4 shadow-lg text-center">
+            <div className={containerClass}>
                 <UserPanel
                     onChange={(nodes, edges) => {
                         setGraph({ nodes, edges });
@@ -35,11 +37,11 @@ function App() {
                     }}
                 />
             </div>
-            <div className="flex-1 bg-white m-4 shadow-lg text-center">
+            <div className={containerClass}>
                 <GraphView graph={graph} />
             </div>
-            <div className="flex-1 bg-white m-4 shadow-lg text-center">
-                <Lists lists={lists}></Lists>
+            <div className={containerClass}>
+                {Boolean(Object.keys(lists).length) && <Lists lists={lists}></Lists>}
             </div>
         </div>
     );

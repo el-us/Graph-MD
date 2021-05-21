@@ -1,40 +1,19 @@
+import Table from '../table/index';
+
 function Lists({ lists }) {
-    console.log(lists);
     return (
         <>
-            adjacencyMatrix
-            <div>
-                {lists.adjacencyMatrix &&
-                    lists.adjacencyMatrix.map((item) => (
-                        <div>
-                            {item.map((col) => (
-                                <span>{col}</span>
-                            ))}
-                        </div>
-                    ))}
-            </div>
-            incidenceList
-            <div>
-                {lists.incidenceList &&
-                    lists.incidenceList.map((item) => (
-                        <div>
-                            {item.map((col) => (
-                                <span>{col}</span>
-                            ))}
-                        </div>
-                    ))}
-            </div>
-            incidenceMatrix
-            <div>
-                {lists.incidenceMatrix &&
-                    lists.incidenceMatrix.map((item) => (
-                        <div>
-                            {item.map((col) => (
-                                <span>{col}</span>
-                            ))}
-                        </div>
-                    ))}
-            </div>
+            {lists.adjacencyMatrix && (
+                <Table title="Macierz sasiedztwa" table={lists.adjacencyMatrix}></Table>
+            )}
+            {lists.incidenceList && (
+                <Table title="Lista incydencji" table={lists.incidenceList}></Table>
+            )}
+            {lists.incidenceMatrix && (
+                <Table title="Macierz incydencji" table={lists.incidenceMatrix}></Table>
+            )}
+            <div> Czy jest ...: {String(lists.isConsistent.BreadthFirstSearch)}</div>
+            <div> Czy jest ...: {String(lists.isConsistent.DepthFirstSearch)}</div>
         </>
     );
 }

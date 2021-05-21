@@ -3,11 +3,16 @@ import React, { useState } from 'react';
 function UserPanel({ onChange }) {
     const [nodes, setNodes] = useState([]);
     const [edges, setEdges] = useState([]);
-    let from = '';
-    let to = '';
+    const [from, setFrom] = useState(0);
+    const [to, setTo] = useState(0);
+
+    const listElementClass = 'inline-block mr-1';
 
     function addNode() {
         const nodeIndex = nodes.length;
+        if (nodeIndex > 5) {
+            return;
+        }
         const newNodes = [
             ...nodes,
             {
@@ -20,14 +25,17 @@ function UserPanel({ onChange }) {
     }
 
     function addEdges() {
-        // setEdgeCords({ ...edgeCords, id: `${edgeCords.from}-${edgeCords.to}` });
-
-        if (from === '' && to === '') {
-            return;
-        }
         if (!edges.some((item) => item.id === `${from}-${to}`)) {
             setEdges([...edges, { from, to, id: `${from}-${to}` }]);
         }
+    }
+
+    function resetState() {
+        setFrom(0);
+        setTo(0);
+        setEdges([]);
+        setNodes([]);
+        onChange([], []);
     }
 
     return (
@@ -37,9 +45,11 @@ function UserPanel({ onChange }) {
                 <p>Wierzcholki:</p>
                 <div>
                     <p>Dostepne Wierzcholki</p>
-                    <ul>
+                    <ul className="h-8 flex justify-center content-center">
                         {nodes.map((node) => (
-                            <li key={node.id}>{node.label}</li>
+                            <li className={listElementClass} key={node.id}>
+                                [{node.label}]
+                            </li>
                         ))}
                     </ul>
                     <button
@@ -54,20 +64,17 @@ function UserPanel({ onChange }) {
                 <div>Dostepne Krawedzie</div>
                 <ul>
                     {edges.map(({ from, to }, index) => (
-                        <li key={index}>
-                            {from} => {to}
+                        <li className={listElementClass} key={index}>
+                            [{from} => {to}]
                         </li>
                     ))}
                 </ul>
                 <div className="flex flex-col justify-center mt-2">
                     <label for="from">Wybierz numer wierzcholka poczatku krawedzi: </label>
                     <select
-                        onChange={
-                            (event) => {
-                                from = Number(event.target.value);
-                            }
-                            // setEdgeCords({ ...edgeCords, from: event.target.value })
-                        }
+                        onChange={(event) => {
+                            setFrom(Number(event.target.value));
+                        }}
                         name="from"
                         id="from">
                         {nodes.map((node) => (
@@ -81,13 +88,9 @@ function UserPanel({ onChange }) {
                 <div className="flex flex-col justify-center mt-2">
                     <label htmlFor="to">Wybierz numer wierzcholka konca krawedzi: </label>
                     <select
-                        // onChange={(event) => setEdgeCords({ ...edgeCords, to: event.target.value })}
-                        onChange={
-                            (event) => {
-                                to = Number(event.target.value);
-                            }
-                            // setEdgeCords({ ...edgeCords, from: event.target.value })
-                        }
+                        onChange={(event) => {
+                            setTo(Number(event.target.value));
+                        }}
                         name="to"
                         id="to">
                         {nodes.map((node) => (
@@ -99,21 +102,29 @@ function UserPanel({ onChange }) {
                 </div>
 
                 <button
-                    onClick={() => addEdges()}
+                    onClick={() => {
+                        addEdges();
+                    }}
                     className="mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400">
                     Dodaj krawedz
                 </button>
             </div>
-            <button
-                onClick={() => {
-                    onChange(nodes, edges);
-                    // setTimeout(() => {
-                    //     onChange({}, {});
-                    // }, 0);
-                }}
-                className="mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400">
-                Rysuj graf
-            </button>
+            <div className="flex justify-center">
+                <button
+                    onClick={() => {
+                        onChange(nodes, edges);
+                    }}
+                    className="mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400">
+                    Rysuj graf
+                </button>
+                <button
+                    onClick={() => {
+                        resetState();
+                    }}
+                    className="mt-6 rounded-md py-1 px-4 text-gray-400 font-bold border-2 border-gray-400 mx-2">
+                    Reset
+                </button>
+            </div>
         </div>
     );
 }
