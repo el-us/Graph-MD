@@ -45,10 +45,10 @@ function UserPanel({ onChange }) {
             <div className="mt-4 p-2 border-2 border-gray-400 rounded-md">
                 <div>
                     <p>
-                        Dostepne Wierzcholki
+                        Dostępne Wierzchołki
                         {isMaxNodes ? (
                             <div className="ml-1 text-yellow-500 font-bold">
-                                Osiagnieto maksymalna ilosc wierzcholkow
+                                Osiągnięto maksymalną ilość wierzchołków!
                             </div>
                         ) : null}
                     </p>
@@ -66,12 +66,12 @@ function UserPanel({ onChange }) {
                         className={`mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400 ${
                             nodes.length > 5 ? 'cursor-not-allowed' : null
                         }`}>
-                        Dodaj wiercholek
+                        Dodaj wierzchołek
                     </button>
                 </div>
             </div>
             <div className="mt-4 p-2 border-2 border-gray-400 rounded-md">
-                <div>Dostepne Krawedzie</div>
+                <div>Dostępne krawędzie</div>
                 <ul>
                     {edges.map(({ from, to }, index) => (
                         <li className={listElementClass} key={index}>
@@ -80,7 +80,7 @@ function UserPanel({ onChange }) {
                     ))}
                 </ul>
                 <div className="flex flex-col justify-center mt-2">
-                    <label for="from">Wybierz numer wierzcholka poczatku krawedzi: </label>
+                    <label for="from">Wybierz numer wierzchołka początku krawędzi:</label>
                     <select
                         onChange={(event) => {
                             setFrom(Number(event.target.value));
@@ -94,9 +94,8 @@ function UserPanel({ onChange }) {
                         ))}
                     </select>
                 </div>
-
                 <div className="flex flex-col justify-center mt-2">
-                    <label htmlFor="to">Wybierz numer wierzcholka konca krawedzi: </label>
+                    <label htmlFor="to">Wybierz numer wierzchołka końca krawędzi: </label>
                     <select
                         onChange={(event) => {
                             setTo(Number(event.target.value));
@@ -116,7 +115,7 @@ function UserPanel({ onChange }) {
                         addEdges();
                     }}
                     className="mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400">
-                    Dodaj krawedz
+                    Dodaj krawędź
                 </button>
             </div>
             <div className="flex justify-center">

@@ -34,12 +34,12 @@ function App() {
 
     return (
         <div className="h-full bg-gray-10">
-            <h1 className="h-full bg-gray-100 text-center uppercase font-bold pt-2 text-lg">
-                LSFR client
+            <h1 className="h-full bg-gray-100 text-center font-bold pt-2 text-xl">
+                Graph Project MD
             </h1>
-            <div className="h-full p-16 flex flex-col lg:flex-row bg-gray-100 flex-wrap">
+            <div className="h-full p-16  pb-2 flex flex-col lg:flex-row bg-gray-100 flex-wrap">
                 <div className={containerClass}>
-                    <h2 className={containerHeaderClass}>Panel uzytkownika:</h2>
+                    <h2 className={containerHeaderClass}>Panel użytkownika:</h2>
                     <UserPanel
                         onChange={(nodes, edges) => {
                             setGraph({ nodes, edges });
@@ -48,7 +48,7 @@ function App() {
                     />
                 </div>
                 <div className={containerClass}>
-                    <h2 className={containerHeaderClass}>Wizualizacja grafa:</h2>
+                    <h2 className={containerHeaderClass}>Wizualizacja grafu:</h2>
                     <GraphView graph={graph} />
                 </div>
                 <div className={`${containerClass}`} style={{ flex: '1 1 100%' }}>
@@ -58,9 +58,9 @@ function App() {
                     </div>
                 </div>
             </div>
-            <div className="h-full bg-gray-100 text-center uppercase font-bold p-4">
-                Projekt został wykonany przez:
-                <span className="italic">Jacek Chmiel, Łukasz Seremak, Mateusz Myrcik</span>
+            <div className="h-full bg-gray-100 text-center uppercase p-4">
+                <span className="font-bold">Projekt został wykonany przez:</span>
+                <span className="italic"> Jacek Chmiel, Łukasz Seremak, Mateusz Myrcik</span>
             </div>
         </div>
     );
