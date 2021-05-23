@@ -33,25 +33,34 @@ function App() {
     }
 
     return (
-        <div className="h-full p-16 flex flex-col lg:flex-row bg-gray-100 flex-wrap">
-            <div className={containerClass}>
-                <h2 className={containerHeaderClass}>Panel uzytkownika:</h2>
-                <UserPanel
-                    onChange={(nodes, edges) => {
-                        setGraph({ nodes, edges });
-                        fetchLists(nodes, edges);
-                    }}
-                />
-            </div>
-            <div className={containerClass}>
-                <h2 className={containerHeaderClass}>Wizualizacja grafa:</h2>
-                <GraphView graph={graph} />
-            </div>
-            <div className={`${containerClass}`} style={{ flex: '1 1 100%' }}>
-                <h2 className={`${containerHeaderClass} mb-2`}>Macierze:</h2>
-                <div className="flex justify-between">
-                    {Boolean(Object.keys(lists).length) && <Lists lists={lists}></Lists>}
+        <div className="h-full bg-gray-10">
+            <h1 className="h-full bg-gray-100 text-center uppercase font-bold pt-2 text-lg">
+                LSFR client
+            </h1>
+            <div className="h-full p-16 flex flex-col lg:flex-row bg-gray-100 flex-wrap">
+                <div className={containerClass}>
+                    <h2 className={containerHeaderClass}>Panel uzytkownika:</h2>
+                    <UserPanel
+                        onChange={(nodes, edges) => {
+                            setGraph({ nodes, edges });
+                            fetchLists(nodes, edges);
+                        }}
+                    />
                 </div>
+                <div className={containerClass}>
+                    <h2 className={containerHeaderClass}>Wizualizacja grafa:</h2>
+                    <GraphView graph={graph} />
+                </div>
+                <div className={`${containerClass}`} style={{ flex: '1 1 100%' }}>
+                    <h2 className={`${containerHeaderClass} mb-2`}>Macierze:</h2>
+                    <div className="flex justify-between">
+                        {Boolean(Object.keys(lists).length) && <Lists lists={lists}></Lists>}
+                    </div>
+                </div>
+            </div>
+            <div className="h-full bg-gray-100 text-center uppercase font-bold p-4">
+                Projekt został wykonany przez:
+                <span className="italic">Jacek Chmiel, Łukasz Seremak, Mateusz Myrcik</span>
             </div>
         </div>
     );
