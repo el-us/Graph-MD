@@ -8,6 +8,8 @@ function UserPanel({ onChange }) {
 
     const listElementClass = 'inline-block mr-1';
 
+    const isMaxNodes = nodes.length > 5;
+
     function addNode() {
         const nodeIndex = nodes.length;
         if (nodeIndex > 5) {
@@ -40,11 +42,16 @@ function UserPanel({ onChange }) {
 
     return (
         <div className="p-2">
-            <p>Stworz graf</p>
             <div className="mt-4 p-2 border-2 border-gray-400 rounded-md">
-                <p>Wierzcholki:</p>
                 <div>
-                    <p>Dostepne Wierzcholki</p>
+                    <p>
+                        Dostepne Wierzcholki
+                        {isMaxNodes ? (
+                            <div className="ml-1 text-yellow-500 font-bold">
+                                Osiagnieto maksymalna ilosc wierzcholkow
+                            </div>
+                        ) : null}
+                    </p>
                     <ul className="h-8 flex justify-center content-center">
                         {nodes.map((node) => (
                             <li className={listElementClass} key={node.id}>
@@ -54,13 +61,16 @@ function UserPanel({ onChange }) {
                     </ul>
                     <button
                         onClick={() => addNode()}
-                        className="mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400">
-                        Dodaj Wierzcholki
+                        type="button"
+                        disabled={nodes.length > 5}
+                        className={`mt-6 rounded-md py-1 px-4 text-white font-bold bg-gray-400 ${
+                            nodes.length > 5 ? 'cursor-not-allowed' : null
+                        }`}>
+                        Dodaj wiercholek
                     </button>
                 </div>
             </div>
             <div className="mt-4 p-2 border-2 border-gray-400 rounded-md">
-                <p>Krawedzie:</p>
                 <div>Dostepne Krawedzie</div>
                 <ul>
                     {edges.map(({ from, to }, index) => (

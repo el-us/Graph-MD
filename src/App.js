@@ -9,7 +9,8 @@ function App() {
     const [graph, setGraph] = useState({});
     const [lists, setLists] = useState({});
 
-    const containerClass = 'flex-1 bg-white m-4 p-2 shadow-lg text-center';
+    const containerClass = 'flex-1 min-h-500px bg-white m-4 p-2 shadow-lg text-center';
+    const containerHeaderClass = 'font-bold';
 
     async function fetchLists(nodes, edges) {
         const fullResponse = await fetch('https://graphprojectmd.herokuapp.com/graph', {
@@ -24,12 +25,17 @@ function App() {
             })
         });
         const responseJson = await fullResponse.json();
-        setLists(responseJson);
+        if (responseJson?.message?.includes('Internal Server Error')) {
+            setLists({});
+        } else {
+            setLists(responseJson);
+        }
     }
 
     return (
-        <div className="h-screen p-16 flex bg-gray-100">
+        <div className="h-full p-16 flex flex-col lg:flex-row bg-gray-100 flex-wrap">
             <div className={containerClass}>
+                <h2 className={containerHeaderClass}>Panel uzytkownika:</h2>
                 <UserPanel
                     onChange={(nodes, edges) => {
                         setGraph({ nodes, edges });
@@ -38,10 +44,14 @@ function App() {
                 />
             </div>
             <div className={containerClass}>
+                <h2 className={containerHeaderClass}>Wizualizacja grafa:</h2>
                 <GraphView graph={graph} />
             </div>
-            <div className={containerClass}>
-                {Boolean(Object.keys(lists).length) && <Lists lists={lists}></Lists>}
+            <div className={`${containerClass}`} style={{ flex: '1 1 100%' }}>
+                <h2 className={`${containerHeaderClass} mb-2`}>Macierze:</h2>
+                <div className="flex justify-between">
+                    {Boolean(Object.keys(lists).length) && <Lists lists={lists}></Lists>}
+                </div>
             </div>
         </div>
     );

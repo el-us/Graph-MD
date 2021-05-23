@@ -1,19 +1,25 @@
 import Table from '../table/index';
+import ExtendedTable from '../extendedTable/index';
 
 function Lists({ lists }) {
+    const listClass = 'flex-1';
+
     return (
         <>
             {lists.adjacencyMatrix && (
-                <Table title="Macierz sasiedztwa" table={lists.adjacencyMatrix}></Table>
+                <Table title="Macierz sąsiedztwa" table={lists.adjacencyMatrix}></Table>
             )}
             {lists.incidenceList && (
-                <Table title="Lista incydencji" table={lists.incidenceList}></Table>
+                <ExtendedTable title="Lista incydencji" table={lists.incidenceList}></ExtendedTable>
             )}
             {lists.incidenceMatrix && (
                 <Table title="Macierz incydencji" table={lists.incidenceMatrix}></Table>
             )}
-            <div> Czy jest ...: {String(lists.isConsistent.BreadthFirstSearch)}</div>
-            <div> Czy jest ...: {String(lists.isConsistent.DepthFirstSearch)}</div>
+            <div className={listClass}>
+                <div className="italic mb-4">Czy graf jest spójny:</div>
+                <div> Wyszukiwanie wszerz: {String(lists.isConsistent?.BreadthFirstSearch)}</div>
+                <div> Wyszukiwanie wgłąb: {String(lists.isConsistent?.DepthFirstSearch)}</div>
+            </div>
         </>
     );
 }
